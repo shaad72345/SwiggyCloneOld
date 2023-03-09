@@ -14,25 +14,12 @@
             <div class="_2BkKe">
                 <div class="_27NPr">
                     <div class="editBtnSec"><button class="editProfBtn">Edit profile</button></div>
-                    <div class="userName"> <!-- -->amar desai<!-- --> </div>
-                    <div class="userMob"><span>7977690791</span><span class="userEmail">amardesai301@gmail.com</span></div>
+                    <div class="userName">ABC</div>
+                    <div class="userDetails"><span class="userMob">9199999999</span><span class="userEmail">abc@gmail.com</span></div>
                 </div>
             </div>
 
-            <!-- Hidden Section to Edit Profile -->
-            <div style="display:none" class="_3ANBe _1-rIX O6J5C">
-                <div class="_2G5fZ">
-                    <div class="_2VR4Z">
-                        <div class="-dIwe">amar desai</div>
-                        <div class="_3qvHl">7977690791 . amardesai301@gmail.com</div>
-                    </div>
-                    <div class="hIrua">
-                        <div class="DCrYO ">Edit profile</div>
-                    </div>
-                </div>
-            </div>
-            <!--  -->
-
+            <!-- Child Container -->
             <div class="childContainer ">
                 <div class="v6luz FvIBT"></div>
                 <div class="childDiv1">
@@ -93,7 +80,14 @@
 </body>
 </html>
 <script>
-let mobile=document.getElementById("mobile").value;
-let email=document.getElementById("email").value;
-let name=document.getElementById("name").value;
+    let userName=document.getElementById("name").value;
+    document.querySelector(".userName").innerHTML= userName;
+
+    let userMob=document.getElementById("mobile").value;
+    document.querySelector(".userMob").innerHTML= userMob;
+
+    let userEmail=document.getElementById("email").value;
+    document.querySelector(".userEmail").innerHTML= userEmail;
+
+
 </script>
