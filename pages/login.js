@@ -172,7 +172,7 @@ currentLocBtn.onclick=()=>{
     function getCoordintes(){
         const options = {
           enableHighAccuracy: true,
-          timeout: 1000,
+          timeout: 700,
           maximumAge: 0,
         };
         function success(pos) {
@@ -240,7 +240,7 @@ currentLocBtn.onclick=()=>{
         var other=document.querySelector(".other")
         var town=document.getElementById("town")
         other.innerText="Other"
-        town.innerText=`${inputSearch.value},India`
+        town.innerText=`${toTitleCase(inputSearch.value)},India`
 
         let obj={
             city:inputSearch.value,
@@ -250,6 +250,7 @@ currentLocBtn.onclick=()=>{
         recentSearch.push(obj)
         displayRecentSearch(recentSearch)
         localStorage.setItem("recentSearch",JSON.stringify(recentSearch))
+        inputSearch.value=""
 
     }
  }
@@ -284,13 +285,23 @@ currentLocBtn.onclick=()=>{
             var other=document.querySelector(".other")
             var town=document.getElementById("town")
             other.innerText="Other"
-            town.innerText=`${element.city},India` 
+            let c=toTitleCase(element.city)
+            town.innerText=`${c},India` 
         }
+        
 
 
     });
 
  }
+
+ //function to convert titlecase/running letter
+
+ function toTitleCase(str) {
+    return str.toLowerCase().split(' ').map(function (word) {
+      return (word.charAt(0).toUpperCase() + word.slice(1));
+    }).join(' ');
+  }
 
 
 
