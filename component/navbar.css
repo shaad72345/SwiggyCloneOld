@@ -5,7 +5,13 @@
 #nav-body>div{
     padding-top: 0;
    margin: -50px 0;
-   margin-bottom: -50px;
+   padding-bottom: -200px;
+}
+#nav-body>.toast-container{
+    border: none;
+}
+.container{
+    box-shadow: rgba(100, 157, 165, 0.2) 0px 8px 24px;
 }
 #logo{
     width: 70px;
@@ -32,11 +38,12 @@
         font-weight: 700;
         color: #3d4152;
         float: left;
+        /* text-overflow: ellipsis; */
     
 }
 .other{
     display: block;
-    min-width: 30px;
+    max-width: 100px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -54,7 +61,7 @@
     color: #a4a7b2 ;
 }
 #town{
-    width: 200px;
+    max-width: 200px;
     padding-left: 5px;
     margin-left: 5px;
     color: #686b78;

@@ -23,6 +23,20 @@ document.querySelector("body").onload=()=>{
     }else{
         profileNav.style.display="none"
     }
+
+
+    //last search address  when onload 
+    let address=JSON.parse(localStorage.getItem("lastAddress"))
+    var other=document.querySelector(".other")
+    other.innerText=address.delivaryLocation
+    var town=document.getElementById("town")
+    town.innerText=`${address.city},${address.state},${address.country}`
+    console.log(other,town)
+
+
+    let recentSearch=JSON.parse(localStorage.getItem("recentSearch")) || []
+    displayRecentSearch(recentSearch)
+    
 }
 
 createBtn.addEventListener("click",()=>{
@@ -47,19 +61,21 @@ document.getElementById("name").value=""
 
 // sighuppage submit
 signupForm.onsubmit=()=>{
+    event.preventDefault()
+
 let mobile=document.querySelector(".mobile").value
 let email=document.getElementById("email").value
 let name=document.getElementById("name").value
 let users=JSON.parse(localStorage.getItem("usersData")) || [];
 let array=users.filter((element)=>{
-    return mobile==element.mobile
+    return mobile==element.mobile || email==element.email
 })
 console.log(array)
-if(array.length>=1){
-    Alert("User Already Register!",signupForm)
+if(array.length==1){
+    Alert("User Already Register!",signupForm,"warning")
 
 }else if(mobile.length!=10 || email=="" || name==""){
-    Alert("Please Enter Correct Details!",signupForm)
+    Alert("Please Enter Correct Details!",signupForm,"warning")
 }else{
     var obj={
         mobile:mobile,
@@ -75,6 +91,7 @@ if(array.length>=1){
     signupForm.style.display="none"
     loginDiv.style.display="block"
     loginForm.style.display="block"
+    Alert("Sign up Successfully",signupForm,"sucess")
 }
 }
 
@@ -82,17 +99,18 @@ if(array.length>=1){
 // loginpage submit
 
 loginForm.onsubmit=()=>{
+    event.preventDefault()
     let mobile=document.getElementById("mobile").value
     let users=JSON.parse(localStorage.getItem("usersData")) || [];
     if(mobile.length!=10){
-        Alert("Please Enter Valid Mobile Number!",loginForm)
+        Alert("Please Enter Valid Mobile Number!",loginForm,"warning")
     }else{
         let obj=users.filter((element)=>{
             return mobile==element.mobile
         })
         console.log(obj)
         if(obj.length==0){
-            Alert("User Not Register!",loginForm)
+            Alert("User Not Register!",loginForm,"warning")
         }else{
             let log=document.getElementById("log")
             log.setAttribute("data-bs-dismiss","offcanvas")
@@ -104,7 +122,7 @@ loginForm.onsubmit=()=>{
                 console.log(obj)
                 profileName.innerText=obj[0].name.slice(0,7)+"..";
                 document.getElementById("mobile").value=""
-                Alert("Congratulations! Login Successfully",loginForm)
+                Alert("Congratulations! Login Successfully",loginForm,"sucess")
                 // data-bs-dismiss="offcanvas" aria-label="Close"
 
            
@@ -123,13 +141,19 @@ logout.onclick=()=>{
     localStorage.setItem("loginUser",JSON.stringify(arr))
     signinNav.style.display="block";
     profileNav.style.display="none"
-    Alert("logout Successfully!",loginForm)
+    Alert("logout Successfully!",loginForm,"sucess")
 }
 
 
 
 //loast alert
-function Alert(word,btn){
+function Alert(word,btn,type){
+    let toastBody=document.querySelector(".toast-body")
+    if(type=="sucess"){
+        toastBody.style.backgroundColor="#dff0d8";
+    }else{
+        toastBody.style.backgroundColor="#f2dede";
+    }
 const toastLiveExample = document.getElementById('liveToast')
 console.log(word,toast_body)
     toast_body.innerText=word
@@ -139,6 +163,137 @@ console.log(word,toast_body)
     toast.show()
   })
 }
+
+
+///get current location
+let currentLocBtn=document.querySelector(".gps")
+
+currentLocBtn.onclick=()=>{
+    function getCoordintes(){
+        const options = {
+          enableHighAccuracy: true,
+          timeout: 1000,
+          maximumAge: 0,
+        };
+        function success(pos) {
+          const crd = pos.coords;
+          let coordinates=[crd.latitude,crd.longitude]
+          getCity(coordinates)
+        }
+        
+        function error(err) {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+        
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+        // Step 2: Get city name
+        function getCity(coordinates) {
+            var xhr = new XMLHttpRequest();
+            var lat = coordinates[0];
+            var lng = coordinates[1];
+        
+            // Paste your LocationIQ token below.
+            xhr.open('GET', "https://us1.locationiq.com/v1/reverse.php?key=pk.6d4f0aab378ea9b394e88add2fe0490c&lat=" +
+            lat + "&lon=" + lng + "&format=json", true);
+            xhr.send();
+            xhr.onreadystatechange = processRequest;
+            xhr.addEventListener("readystatechange", processRequest, false);
+        
+            function processRequest(e) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    city = response.address.city || response.address.county;
+			        state=response.address.state
+			        country=response.address.country
+			        delivaryLocation=response.address.county
+                    var other=document.querySelector(".other")
+                    other.innerText=delivaryLocation
+                    var town=document.getElementById("town")
+                    town.innerText=`${city},${state},${country}`
+                    console.log(other,town)
+                    var obj={
+                        city:city,
+                        state:state,
+                        country:country,
+                        delivaryLocation:delivaryLocation,
+                        lat:lat,
+                        lon:lng
+                    }
+                    localStorage.setItem("lastAddress",JSON.stringify(obj))
+
+                    return;
+                }
+            }
+        }
+        getCoordintes();
+
+}
+
+
+// location by input search
+
+
+ let inputSearch=document.getElementById("location-input")
+ inputSearch.onkeypress=()=>{
+    if(event.key=="Enter" && inputSearch.value!=""){
+        var other=document.querySelector(".other")
+        var town=document.getElementById("town")
+        other.innerText="Other"
+        town.innerText=`${inputSearch.value},India`
+
+        let obj={
+            city:inputSearch.value,
+            country:"India",
+        }
+        let recentSearch=JSON.parse(localStorage.getItem("recentSearch")) || []
+        recentSearch.push(obj)
+        displayRecentSearch(recentSearch)
+        localStorage.setItem("recentSearch",JSON.stringify(recentSearch))
+
+    }
+ }
+
+ //diplaying reccent search
+
+ function displayRecentSearch(data){
+    let recentSearchContainer=document.getElementById("recent-search-container")
+    recentSearchContainer.innerText=""
+    console.log("hii")
+    data.map (element => {
+        console.log("hii")
+
+        let areaContainer=document.createElement("div")
+        areaContainer.setAttribute("id","area-container")
+        // class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+        // areaContainer.setAttribute("class","btn-close")
+        areaContainer.setAttribute("data-bs-dismiss","offcanvas")
+        areaContainer.setAttribute("aria-label","Close")
+        let area=document.createElement("div")
+        area.setAttribute("id","area")
+        let city=document.createElement("div")
+        city.setAttribute("id","search-city-name")
+        city.innerText=element.city.toUpperCase()
+        let state=document.createElement("div")
+        state.setAttribute("id","search-city-state")
+        state.innerText="India"
+        area.append(city,state)
+        areaContainer.append(area)
+        recentSearchContainer.append(areaContainer)
+        areaContainer.onclick=()=>{
+            var other=document.querySelector(".other")
+            var town=document.getElementById("town")
+            other.innerText="Other"
+            town.innerText=`${element.city},India` 
+        }
+
+
+    });
+
+ }
+
+
+
 
 
 
