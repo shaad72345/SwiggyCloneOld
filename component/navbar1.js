@@ -1,23 +1,9 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="navbar1.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link rel="stylesheet" href="../pages/login1.css">
-  <style>
-   </style>
-</head>
-<body>
-  <!-- Header nav bar -->
- <header class="text-gray-600 body-font" id="nav-body">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+function navbar(){
+    return `
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
     <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-        <img src="https://logosandtypes.com/wp-content/uploads/2021/01/Swiggy.png" alt="" id="logo" >
-
-      <span class="ml-3 text-xl" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+        <img src="https://logosandtypes.com/wp-content/uploads/2021/01/Swiggy.png" alt="" id="logo">
+      <span class="ml-3 text-xl">
           <div id="nav-location">
                 <span id="other">
                     <span class="other">Other</span>
@@ -30,46 +16,6 @@
                 </span>
             </div>
       </span>
-      
-<!-- offcanvas for location -->
-      <div class="offcanvas offcanvas-start location-canvas" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-        <div class="offcanvas-header">
-          <!-- <i class="fa-solid fa-xmark"></i> -->
-          <button class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
-        </div>
-        <div class="offcanvas-body">
-          <div class="location-input">
-            <div class="location-input2">
-              <input type="text" id="location-input" placeholder="Search for City">
-            </div>
-          </div>     
-          <div class="location-input">
-            <div class="location-input3">
-                  <div class="gps" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-                    <div class="icon-location-crosshair _13AY4"></div>
-                    <div class="_3eFzL" >
-                      <div class="Ku2oK" >Get current location</div>
-                      <div class="_1joFh">Using GPS</div>
-                    </div>
-                  </div>
-            </div>
-          </div>    
-          <div class="recent-search">
-            <div class="recent-search-text">RECENT SEARCH</div>
-
-            <!-- recen search city of your system -->
-            <div id="recent-search-container">
-             
-            
-            </div>
-                   
-            
-          </div>
-
-        </div>
-      </div>
-
-
     </a>
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
       <a class="mr-5 ">
@@ -159,7 +105,7 @@
       <form action="" id="signup-form">
         <div>
           <div id="phone-box">
-            <input class="_381fS mobile" type="number"  id="mobile" tabindex="1" maxlength="10" autocomplete="off">
+            <input class="_381fS mobile" type="number"  id="mobile"tabindex="1" maxlength="10" autocomplete="off">
             <div></div>
             <label class="_1Cvlf _2tL9P " for="mobile">Phone number</label>
           </div>
@@ -200,26 +146,17 @@
   </div>
 
   <!-- toast alert -->
-  <div class="toast-container position-fixed top-10 end-10 p-3" >
+  <div class="toast-container position-fixed bottom-10 end-0 p-3" >
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">Ok</button>
       </div>
       <div class="toast-body">
-        Hello, world! This is a example of toast message.
+        Hello, world! This is a toast message.
       </div>
     </div>
   </div>
-</header>
-</body>
-<!-- <script type="module">
-import {navbar} from './navbar1.js'
-document.querySelector(".body-font").innerHTML=navbar()
+    `
+}
 
-</script> -->
-<script src="../pages/login1.js" type=""></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
-    <script src="https://kit.fontawesome.com/977289aa03.js" crossorigin="anonymous"></script>
-
-</html>
+export {navbar}
