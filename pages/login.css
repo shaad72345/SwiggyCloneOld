@@ -153,3 +153,134 @@
   .dropdown-content a:hover {background-color: #ddd;}
   
   .dropdown:hover .dropdown-content {display: block;}
+
+
+  /* css for location canvas */
+  #offcanvasWithBothOptions{
+    width: 450px;
+  }
+
+  .location-input{
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .location-input2,.location-input3{
+    border: 1px solid #d4d5d9;
+    display: block;
+    position: relative;
+  }
+  .location-input3{
+    content: "";
+    display: block;
+    border-top: 1px dashed #a9abb2;
+    position: relative;
+    /* margin-left: 56px; */
+  }
+  #location-input{
+    height: 30px;
+    padding-top: 0;
+    font-size: 1.15rem;
+    padding-right: 72px;
+    background-color: transparent;
+    line-height: normal;
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    font-size: 17px;
+    margin: 0;
+    padding: 0 20px;
+    box-shadow: none;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  .gps{
+    display: table;
+    table-layout: fixed;
+    padding: 22px 24px;
+  }
+  ._13AY4 {
+    display: table-cell;
+    text-align: left;
+    font-size: 18px;
+    width: 32px;
+    padding-top: 0;
+    padding-left: 1px;
+    color: #535665;
+}
+  .icon-location-crosshair:before {
+    content: "";
+}
+._3eFzL {
+    vertical-align: middle;
+    display: table-cell;
+}
+.Ku2oK {
+    font-size: 16px;
+    font-weight: 500;
+    color: #282c3f;
+}
+._1joFh {
+    font-size: 13px;
+    color: #93959f;
+    line-height: 1.3;
+    padding-top: 5px;
+}
+.Ku2oK:hover{
+    color: #fc8019;
+}
+
+/* RECENT SEARCH */
+.recent-search{
+        padding: 0;
+        border: 1px solid #d4d5d9;
+        margin-bottom: 20px;
+}
+.recent-search-text{
+    font-size: 12px;
+    color: #7e808c;
+    margin: 25px 0 0;
+    margin-left: 56px;
+}
+#recent-search-container{
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    margin-left: 56px;
+
+}
+#area-container{
+    /* display: table; */
+    table-layout: fixed;
+    padding: 22px 24px;
+}
+
+#search-city-name{
+    font-size: 16px;
+    font-weight: 500;
+    color: #282c3f;
+}
+#search-city-state{
+    font-size: 13px;
+    color: #93959f;
+    line-height: 1.3;
+    padding-top: 5px;
+}
+
+#area-container::after {
+    content: "";
+    display: block;
+    border-top: 1px dashed #a9abb2;
+    position: relative;
+    margin-left: 30px;
+    margin-top: 30px;
+    /* border: 1px solid green; */
+}
+#area{
+    vertical-align: middle;
+    display: table-cell;
+}
